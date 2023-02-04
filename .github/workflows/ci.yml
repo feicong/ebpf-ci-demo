@@ -18,6 +18,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y golang
+      - name: Install LLVM and Clang
+        uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: "14.0"
       # - name: Set up NDK
       #   id: setup-ndk
       #   uses: nttld/setup-ndk@v1
