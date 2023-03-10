@@ -1,0 +1,5 @@
+. ${ROOT_DIR}/goldfish/build.config.base
+. ${ROOT_DIR}/goldfish/build.config.aarch64
+. ${ROOT_DIR}/goldfish/build.config.goldfish.kprobes
+
+DEFCONFIG=arm64_ranchu_defconfig
