@@ -9,7 +9,7 @@ build_task:
     cpu: 8
     memory: 24G
   env:
-    GITHUB_TOKEN: ENCRYPTED[!1234!]
+    GITHUB_TOKEN: ENCRYPTED[!5deaf3ee6e5a4c1ca231d5a085bd10a44914b713ed319c0b4715cd003e0d0f7e3c121752a0ac874708023a342a0e037f!]
   prepare_script:
     - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y git curl sudo apt-utils tzdata rsync
     - bash ./prepare.sh
