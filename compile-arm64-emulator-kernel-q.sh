@@ -34,10 +34,16 @@ rm -rf  prebuilts-master/clang/host/linux-x86/clang-32*
 rm -rf  prebuilts-master/clang/host/linux-x86/clang-r35*
 rm -rf  prebuilts-master/clang/host/linux-x86/clang-r37*
 
+echo patching code.
+cd goldfish
+
+git checkout android-goldfish-4.14-dev
+git rev-parse HEAD
+git apply ../../ebpf-ci-demo/patches/4.14/*.patch
+git status || true
+
 echo enable kprobe
-ls -al ..
-ls -al ../ebpf-ci-demo
-cp -f ../ebpf-ci-demo/patches/android-goldfish-4.14-dev/* ../goldfish/
+cp -f ../../ebpf-ci-demo/patches/android-goldfish-4.14-dev/* ../goldfish/
 ls ../goldfish/
 
 cd ..
