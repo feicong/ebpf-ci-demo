@@ -36,8 +36,8 @@ rm -rf  prebuilts-master/clang/host/linux-x86/clang-r37*
 
 echo enable kprobe
 ls -al ..
-ls -al ../..
-cp -f ../../patches/android-goldfish-4.14-dev/* ../goldfish/
+ls -al ../ebpf-ci-demo
+cp -f ../ebpf-ci-demo/patches/android-goldfish-4.14-dev/* ../goldfish/
 ls ../goldfish/
 
 cd ..
