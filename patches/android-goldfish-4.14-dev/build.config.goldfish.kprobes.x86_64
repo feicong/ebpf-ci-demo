@@ -1,0 +1,5 @@
+. ${ROOT_DIR}/goldfish/build.config.base
+. ${ROOT_DIR}/goldfish/build.config.x86_64
+. ${ROOT_DIR}/goldfish/build.config.goldfish.kprobes
+
+DEFCONFIG=x86_64_ranchu_defconfig
