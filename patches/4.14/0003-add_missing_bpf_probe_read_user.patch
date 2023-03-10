@@ -1,0 +1,100 @@
+From b34457e8935b29feba1fcb83d2d58a83b7319481 Mon Sep 17 00:00:00 2001
+From: You <you@gmail.com>
+Date: Sun, 3 Jul 2022 12:48:29 +0000
+Subject: [PATCH] add_missing_bpf_probe_read_user
+
+---
+ include/uapi/linux/bpf.h       |  5 +++++
+ kernel/trace/bpf_trace.c       | 22 ++++++++++++++++++++++
+ tools/include/uapi/linux/bpf.h |  5 +++++
+ 3 files changed, 32 insertions(+)
+
+diff --git a/include/uapi/linux/bpf.h b/include/uapi/linux/bpf.h
+index a88b2c458dcc..54b2e380903d 100644
+--- a/include/uapi/linux/bpf.h
++++ b/include/uapi/linux/bpf.h
+@@ -576,6 +576,10 @@ union bpf_attr {
+  *     @flags: reserved for future use
+  *     Return: 0 on success or negative error code
+  *
++ * int bpf_probe_read_user(void *dst, int size, void *src)
++ *     Read a userspace pointer safely.
++ *     Return: 0 on success or negative error
++ *
+  * int bpf_sk_redirect_map(map, key, flags)
+  *     Redirect skb to a sock in map using key as a lookup key for the
+  *     sock in map.
+@@ -642,6 +646,7 @@ union bpf_attr {
+ 	FN(set_hash),			\
+ 	FN(setsockopt),			\
+ 	FN(skb_adjust_room),		\
++	FN(probe_read_user),		\
+ 	FN(redirect_map),		\
+ 	FN(sk_redirect_map),		\
+ 	FN(sock_map_update),		\
+diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+index f9dd8fd055a6..13230f093d19 100644
+--- a/kernel/trace/bpf_trace.c
++++ b/kernel/trace/bpf_trace.c
+@@ -81,6 +81,26 @@ static const struct bpf_func_proto bpf_probe_read_proto = {
+ 	.arg3_type	= ARG_ANYTHING,
+ };
+
++BPF_CALL_3(bpf_probe_read_user, void *, dst, u32, size, const void *, unsafe_ptr)
++{
++	int ret;
++
++	ret = probe_user_read(dst, unsafe_ptr, size);
++	if (unlikely(ret < 0))
++		memset(dst, 0, size);
++
++	return ret;
++}
++
++static const struct bpf_func_proto bpf_probe_read_user_proto = {
++	.func		= bpf_probe_read_user,
++	.gpl_only	= true,
++	.ret_type	= RET_INTEGER,
++	.arg1_type	= ARG_PTR_TO_UNINIT_MEM,
++	.arg2_type	= ARG_CONST_SIZE,
++	.arg3_type	= ARG_ANYTHING,
++};
++
+ BPF_CALL_3(bpf_probe_write_user, void *, unsafe_ptr, const void *, src,
+ 	   u32, size)
+ {
+@@ -466,6 +486,8 @@ static const struct bpf_func_proto *tracing_func_proto(enum bpf_func_id func_id)
+ 		return &bpf_map_delete_elem_proto;
+ 	case BPF_FUNC_probe_read:
+ 		return &bpf_probe_read_proto;
++	case BPF_FUNC_probe_read_user:
++		return &bpf_probe_read_user_proto;
+ 	case BPF_FUNC_ktime_get_ns:
+ 		return &bpf_ktime_get_ns_proto;
+ 	case BPF_FUNC_tail_call:
+diff --git a/tools/include/uapi/linux/bpf.h b/tools/include/uapi/linux/bpf.h
+index 30f2ce76b517..9b18ee12dafe 100644
+--- a/tools/include/uapi/linux/bpf.h
++++ b/tools/include/uapi/linux/bpf.h
+@@ -570,6 +570,10 @@ union bpf_attr {
+  *     @flags: reserved for future use
+  *     Return: 0 on success or negative error code
+  *
++ * int bpf_probe_read_user(void *dst, int size, void *src)
++ *     Read a userspace pointer safely.
++ *     Return: 0 on success or negative error
++ *
+  * int bpf_sk_redirect_map(map, key, flags)
+  *     Redirect skb to a sock in map using key as a lookup key for the
+  *     sock in map.
+@@ -636,6 +640,7 @@ union bpf_attr {
+ 	FN(set_hash),			\
+ 	FN(setsockopt),			\
+ 	FN(skb_adjust_room),		\
++	FN(probe_read_user),		\
+ 	FN(redirect_map),		\
+ 	FN(sk_redirect_map),		\
+ 	FN(sock_map_update),		\
+--
+2.36.1
+

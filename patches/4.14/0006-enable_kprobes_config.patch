@@ -1,0 +1,38 @@
+From 92b5d944206b04a46d1108edc7cb7ac9fb19d78f Mon Sep 17 00:00:00 2001
+From: You <you@gmail.com>
+Date: Mon, 4 Jul 2022 10:42:08 +0000
+Subject: [PATCH] enable_kprobes_config
+
+---
+ build.config.base | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/build.config.base b/build.config.base
+index d832b118fa91..0e0fb77b4e72 100644
+--- a/build.config.base
++++ b/build.config.base
+@@ -4,4 +4,19 @@ BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
+
+ EXTRA_CMDS=''
+ STOP_SHIP_TRACEPRINTK=1
+-POST_DEFCONFIG_CMDS="check_defconfig"
++POST_DEFCONFIG_CMDS="check_defconfig && update_kprobes_config"
++function update_kprobes_config() {
++    ${KERNEL_DIR}/scripts/config --file ${OUT_DIR}/.config \
++       -d CONFIG_LTO \
++       -d CONFIG_LTO_CLANG \
++       -d CONFIG_CFI_CLANG \
++       -d CFI_PERMISSIVE \
++       -d CFI_CLANG \
++       -m CONFIG_IKHEADERS \
++       -e CONFIG_HAVE_KPROBES \
++       -e CONFIG_KPROBES \
++       -e CONFIG_KPROBE_EVENT \
++       -d CONFIG_RANDOMIZE_BASE
++    (cd ${OUT_DIR} && \
++     make ${CC_LD_ARG} O=${OUT_DIR} olddefconfig)
++}
+\ No newline at end of file
+--
+2.36.1
+

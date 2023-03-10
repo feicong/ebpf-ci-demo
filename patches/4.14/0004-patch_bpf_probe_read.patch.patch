@@ -1,0 +1,29 @@
+From 205b3795d6c53f3e1b7527508b2b26feaf0a4f01 Mon Sep 17 00:00:00 2001
+From: You <you@gmail.com>
+Date: Sun, 3 Jul 2022 13:03:00 +0000
+Subject: [PATCH] patch_bpf_probe_read
+
+---
+ kernel/trace/bpf_trace.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+index 13230f093d19..2afe0e78ab07 100644
+--- a/kernel/trace/bpf_trace.c
++++ b/kernel/trace/bpf_trace.c
+@@ -67,7 +67,11 @@ BPF_CALL_3(bpf_probe_read, void *, dst, u32, size, const void *, unsafe_ptr)
+
+ 	ret = probe_kernel_read(dst, unsafe_ptr, size);
+ 	if (unlikely(ret < 0))
+-		memset(dst, 0, size);
++		// beginning of added code
++		ret = probe_user_read(dst, unsafe_ptr, size);
++		if (unlikely(ret < 0))
++		// end of added code
++			memset(dst, 0, size);
+
+ 	return ret;
+ }
+--
+2.36.1
+

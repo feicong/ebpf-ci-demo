@@ -1,0 +1,25 @@
+From 83f84dbb486b4b7b1bdefa4e51399b36160f3cda Mon Sep 17 00:00:00 2001
+From: fc777888 <66010241+fc777888@users.noreply.github.com>
+Date: Mon, 4 Jul 2022 18:58:44 +0800
+Subject: [PATCH] patch_wchan
+
+---
+ fs/proc/base.c | 6 +++---
+ 1 file changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/fs/proc/base.c b/fs/proc/base.c
+index 3b593d1bafaf..44014fa5100e 100644
+--- a/fs/proc/base.c
++++ b/fs/proc/base.c
+@@ -395,7 +395,7 @@ static int proc_pid_wchan(struct seq_file *m, struct pid_namespace *ns,
+
+ 	if (wchan && ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS)
+ 			&& !lookup_symbol_name(wchan, symname))
+-		seq_printf(m, "%s", symname);
++		seq_printf(m, "%s", "SyS_epoll_wait");
+ 	else
+ 		seq_putc(m, '0');
+
+--
+2.36.1
+
