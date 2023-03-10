@@ -3,7 +3,7 @@ set -e
 
 echo publishing.
 
-PUBLISH_REPO=fc777888/android-kernel-build
+PUBLISH_REPO=feicong/ebpf-course
 if [[ ! -z ${CIRRUS_REPO_FULL_NAME} ]]; then
     PUBLISH_REPO=${CIRRUS_REPO_FULL_NAME}
 fi
