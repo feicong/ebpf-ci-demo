@@ -1,0 +1,22 @@
+build_task:
+  name: android kernel build
+  timeout_in: 120m
+  # trigger_type: manual
+  # only_if: $CIRRUS_BRANCH == "main"
+  container:
+    image: ubuntu:20.04
+    kvm: true
+    cpu: 8
+    memory: 24G
+  env:
+    GITHUB_TOKEN: ENCRYPTED[!1234!]
+  prepare_script:
+    - apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y git curl sudo apt-utils tzdata rsync
+    - bash ./prepare.sh
+  matrix:
+    - name: arm64 emulator q-4.14 kernel build
+      build_script: bash ./compile-arm64-emulator-kernel-q.sh
+      publish_script: bash ./publish-arm64-emulator-kernel-q.sh
+    - name: x86_64 emulator q-4.14 kernel build
+      build_script: bash ./compile-x86_64-emulator-kernel-q.sh
+      publish_script: bash ./publish-x86_64-emulator-kernel-q.sh
