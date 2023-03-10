@@ -50,6 +50,7 @@ cd ..
 echo patch code done.
 
 echo Building code.
+export PATH="${PWD}/build/build-tools/linux-x86/bin:${PATH}"
 BUILD_CONFIG=goldfish/build.config.goldfish.kprobes.aarch64 SKIP_MRPROPER=1 CC=clang build/build.sh -j12
 
 popd
