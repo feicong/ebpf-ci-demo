@@ -1,7 +1,7 @@
 build_task:
   name: android kernel build
   timeout_in: 120m
-  # trigger_type: manual
+  trigger_type: manual
   # only_if: $CIRRUS_BRANCH == "main"
   container:
     image: ubuntu:20.04
