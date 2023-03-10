@@ -26,11 +26,6 @@ repo init -u https://android.googlesource.com/kernel/manifest -b q-goldfish-andr
 echo Syncing code.
 repo sync -cj8
 
-ls -al
-echo ls goldfish
-ls -al goldfish
-tree -f -L 3 prebuilts
-
 #  build.config.base: LANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r365631c/bin
 # rebuilts-master/clang/host/linux-x86/llvm-binutils-stable linked to clang-r383902 now
 tree -f -L 5 prebuilts-master
@@ -43,11 +38,11 @@ echo patching code.
 cd goldfish
 git checkout android-goldfish-4.14-dev
 git rev-parse HEAD
-git apply ../../android-kernel-patch/patches/4.14/*.patch
+git apply ../../patches/4.14/*.patch
 git status || true
 
 echo enable kprobe
-cp -f ../../android-kernel-patch/patches/android-goldfish-4.14-dev/* ../goldfish/
+cp -f ../../patches/android-goldfish-4.14-dev/* ../goldfish/
 ls ../goldfish/
 
 cd ..
