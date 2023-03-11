@@ -28,6 +28,7 @@ index d832b118fa91..0e0fb77b4e72 100644
 +       -e CONFIG_HAVE_KPROBES \
 +       -e CONFIG_KPROBES \
 +       -e CONFIG_KPROBE_EVENT \
++       -e CONFIG_FTRACE_SYSCALLS \
 +       -d CONFIG_RANDOMIZE_BASE
 +    (cd ${OUT_DIR} && \
 +     make ${CC_LD_ARG} O=${OUT_DIR} olddefconfig)
