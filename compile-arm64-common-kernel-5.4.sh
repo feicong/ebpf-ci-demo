@@ -42,8 +42,8 @@ git rev-parse HEAD
 git status || true
 
 echo enable kprobe
-cp -f ../../ebpf-ci-demo/patches/5.4/* ../common/
-ls ../common/
+cp -f ../../ebpf-ci-demo/patches/5.4/* ../common-modules/virtual-device/
+ls ../common-modules/virtual-device/
 
 cd ..
 echo patch code done.
