@@ -65,5 +65,17 @@ ZIP_FILE=android-arm64-emulator-q-4.14-kernel-uapi-headers-${FILE_TAIL}.tar.gz
 mv ${IMG} ${ZIP_FILE}
 gh release upload latest ${ZIP_FILE} --repo ${PUBLISH_REPO} --clobber
 
+if [[ -f android-kernel/out/arm64/dist/vmlinux ]]; then
+    ZIP_FILE=android-arm64-emulator-q-4.14-vmlinux-${FILE_TAIL}.zip
+    zip -P qq121212 ${ZIP_FILE} android-kernel/out/arm64/dist/vmlinux
+    gh release upload latest ${ZIP_FILE} --repo ${PUBLISH_REPO} --clobber
+fi
+
+if [[ -f android-kernel/out/arm64/dist/vmlinux.btf ]]; then
+    ZIP_FILE=android-arm64-emulator-q-4.14-vmlinux-btf-${FILE_TAIL}.zip
+    zip -P qq121212 ${ZIP_FILE} android-kernel/out/arm64/dist/vmlinux.btf
+    gh release upload latest ${ZIP_FILE} --repo ${PUBLISH_REPO} --clobber
+fi
+
 set +e
 echo publish done.
