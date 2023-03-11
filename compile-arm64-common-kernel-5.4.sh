@@ -37,7 +37,7 @@ rm -rf  prebuilts-master/clang/host/linux-x86/clang-r37*
 echo patching code.
 cd common
 
-git checkout common-android11-5.4
+git checkout android11-5.4
 git rev-parse HEAD
 git status || true
 
