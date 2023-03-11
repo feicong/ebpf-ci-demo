@@ -55,9 +55,7 @@ BUILD_CONFIG=common-modules/virtual-device/build.config.goldfish.x86_64 SKIP_MRP
 popd
 tree -f android-kernel | grep Image
 
-IMG=$(find android-kernel -name "Image" | grep "arch/x86_64/boot")
+IMG=$(find android-kernel -name "bzImage" | grep "arch/x86_64/boot")
 echo ${IMG}
-IMGGZ=$(find android-kernel -name "Image.gz" | grep "arch/x86_64/boot")
-echo ${IMGGZ}
 
 echo compile done.
