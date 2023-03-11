@@ -50,7 +50,7 @@ echo patch code done.
 
 echo Building code.
 sed -i '/soong_zip/d' build/build.sh
-BUILD_CONFIG=common-modules/virtual-device/build.config.goldfish.kprobes.aarch64 SKIP_MRPROPER=1 CC=clang build/build.sh -j12
+BUILD_CONFIG=common-modules/virtual-device/build.config.goldfish.aarch64 SKIP_MRPROPER=1 CC=clang build/build.sh -j12
 
 popd
 tree -f android-kernel | grep Image
