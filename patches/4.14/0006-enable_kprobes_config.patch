@@ -11,7 +11,7 @@ diff --git a/build.config.base b/build.config.base
 index d832b118fa91..0e0fb77b4e72 100644
 --- a/build.config.base
 +++ b/build.config.base
-@@ -4,4 +4,19 @@ BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
+@@ -4,4 +4,20 @@ BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
 
  EXTRA_CMDS=''
  STOP_SHIP_TRACEPRINTK=1
