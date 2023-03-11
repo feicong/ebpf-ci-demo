@@ -35,9 +35,10 @@ rm -rf  prebuilts-master/clang/host/linux-x86/clang-r35*
 rm -rf  prebuilts-master/clang/host/linux-x86/clang-r37*
 
 echo patching code.
+rm -rf common
+git clone https://github.com/feicong/aosp_android_common_kernels common
 cd common
-
-git checkout android11-5.4
+git checkout android-11-5.4-bpf_probe_read_user
 git rev-parse HEAD
 git status || true
 
