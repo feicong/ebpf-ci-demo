@@ -35,7 +35,7 @@ rm -rf  prebuilts-master/clang/host/linux-x86/clang-r35*
 rm -rf  prebuilts-master/clang/host/linux-x86/clang-r37*
 
 echo patching code.
-cd goldfish
+cd common
 
 git checkout common-android11-5.4
 git rev-parse HEAD
