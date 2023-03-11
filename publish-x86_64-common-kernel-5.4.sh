@@ -19,20 +19,7 @@ if [[ ! -z ${CIRRUS_TASK_ID} ]]; then
     FILE_TAIL=${CIRRUS_TASK_ID}
 fi
 
-IMGGZ=$(find android-kernel -name "Image.gz" | grep "arch/x86_64/boot")
-echo ${IMGGZ}
-if [[ -z ${IMGGZ} ]]; then
-    echo "Image.gz not found."
-    exit 1
-fi
-ZIP_FILE=android-x86_64-common-5.4-kernelgz-${FILE_TAIL}.zip
-zip -P qq121212 ${ZIP_FILE} ${IMGGZ}
-
-echo Publishing ${ZIP_FILE}
-curl --request PUT --progress-bar --dump-header - --upload-file ${ZIP_FILE} https://transfer.sh/${ZIP_FILE}
-gh release upload latest ${ZIP_FILE} --repo ${PUBLISH_REPO} --clobber
-
-IMG=$(find android-kernel -name "Image" | grep "arch/x86_64/boot")
+IMG=$(find android-kernel -name "bzImage" | grep "arch/x86_64/boot")
 echo ${IMG}
 if [[ -z ${IMG} ]]; then
     echo "Image not found."
