@@ -23,7 +23,6 @@ function update_kprobes_config() {
        -e CONFIG_CHECKPOINT_RESTORE \
        -e CONFIG_FTRACE_SYSCALLS \
        -e CONFIG_DYNAMIC_FTRACE \
-       -e CONFIG_DEBUG_FS \
        -d CONFIG_RANDOMIZE_BASE
     (cd ${OUT_DIR} && \
      make ${CC_LD_ARG} O=${OUT_DIR} olddefconfig)
