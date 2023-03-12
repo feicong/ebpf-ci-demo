@@ -4,26 +4,7 @@
 DEFCONFIG=goldfish_aarch64_defconfig
 DEFCONFIG_PATH="${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs"
 PRE_DEFCONFIG_CMDS="KCONFIG_CONFIG=${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/${DEFCONFIG} ${ROOT_DIR}/${KERNEL_DIR}/scripts/kconfig/merge_config.sh -m -r ${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/gki_defconfig ${FRAGMENT_DEFCONFIG_PATH}"
-POST_DEFCONFIG_CMDS="rm ${DEFCONFIG_PATH}/${DEFCONFIG} && update_kprobes_config"
-
-function update_kprobes_config() {
-    ${KERNEL_DIR}/scripts/config --file ${OUT_DIR}/.config \
-       -d CONFIG_LTO \
-       -d CONFIG_LTO_CLANG \
-       -d CONFIG_CFI_CLANG \
-       -d CFI_PERMISSIVE \
-       -d CFI_CLANG \
-       -e CONFIG_FUNCTION_TRACER \
-       -e CONFIG_IRQSOFF_TRACER \
-       -e CONFIG_PREEMPT_TRACER \
-       -e CONFIG_DEBUG_FS \
-       -e CONFIG_CHECKPOINT_RESTORE \
-       -e CONFIG_FTRACE_SYSCALLS \
-       -e CONFIG_DYNAMIC_FTRACE \
-       -d CONFIG_RANDOMIZE_BASE
-    (cd ${OUT_DIR} && \
-     make ${CC_LD_ARG} O=${OUT_DIR} olddefconfig)
-}
+POST_DEFCONFIG_CMDS="rm ${DEFCONFIG_PATH}/${DEFCONFIG}"
 
 KMI_SYMBOL_LIST=android/abi_gki_aarch64_goldfish
 TRIM_NONLISTED_KMI=1
