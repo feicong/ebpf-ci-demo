@@ -16,7 +16,6 @@ function update_kprobes_config() {
        -e CONFIG_FUNCTION_TRACER \
        -e CONFIG_IRQSOFF_TRACER \
        -e CONFIG_PREEMPT_TRACER \
-       -e CONFIG_DEBUG_FS \
        -e CONFIG_CHECKPOINT_RESTORE \
        -d CONFIG_RANDOMIZE_BASE
     (cd ${OUT_DIR} && \
