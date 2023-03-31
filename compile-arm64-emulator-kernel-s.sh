@@ -34,7 +34,7 @@ rm -rf  prebuilts-master/clang/host/linux-x86/clang-r45*
 
 echo Building code.
 sed -i '/soong_zip/d' build/build.sh
-BUILD_CONFIG=common-modules/virtual-device/build.config.virtual_device_kprobes.aarch64 SKIP_MRPROPER=1 CC=clang build/build.sh -j12
+BUILD_CONFIG=common-modules/virtual-device/build.config.virtual_device.aarch64 SKIP_MRPROPER=1 CC=clang build/build.sh -j12
 
 popd
 tree -f android-kernel | grep Image
