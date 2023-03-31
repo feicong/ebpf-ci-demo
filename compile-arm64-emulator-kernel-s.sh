@@ -41,7 +41,5 @@ tree -f android-kernel | grep Image
 
 IMG=$(find android-kernel -name "Image" | grep "arch/arm64/boot")
 echo ${IMG}
-IMGGZ=$(find android-kernel -name "Image.gz" | grep "arch/arm64/boot")
-echo ${IMGGZ}
 
 echo compile done.
