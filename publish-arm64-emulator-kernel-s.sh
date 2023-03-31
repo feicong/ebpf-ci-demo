@@ -19,19 +19,6 @@ if [[ ! -z ${CIRRUS_TASK_ID} ]]; then
     FILE_TAIL=${CIRRUS_TASK_ID}
 fi
 
-IMGGZ=$(find android-kernel -name "Image.gz" | grep "arch/arm64/boot")
-echo ${IMGGZ}
-if [[ -z ${IMGGZ} ]]; then
-    echo "Image.gz not found."
-    exit 1
-fi
-ZIP_FILE=android-arm64-emulator-s-kernelgz-${FILE_TAIL}.zip
-zip -P qq121212 ${ZIP_FILE} ${IMGGZ}
-
-echo Publishing ${ZIP_FILE}
-curl --request PUT --progress-bar --dump-header - --upload-file ${ZIP_FILE} https://transfer.sh/${ZIP_FILE}
-gh release upload latest ${ZIP_FILE} --repo ${PUBLISH_REPO} --clobber
-
 IMG=$(find android-kernel -name "Image" | grep "arch/arm64/boot")
 echo ${IMG}
 if [[ -z ${IMG} ]]; then
