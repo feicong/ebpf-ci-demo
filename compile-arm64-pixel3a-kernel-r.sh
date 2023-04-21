@@ -28,7 +28,7 @@ echo patching code.
 pushd private/msm-google
 git checkout ${BRANCH}
 git rev-parse HEAD
-git apply ../../ebpf-ci-demo/patches/4.9/android-11/*.patch
+git apply ../../../ebpf-ci-demo/patches/4.9/android-11/*.patch
 git status || true
 popd
 
