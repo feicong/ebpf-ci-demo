@@ -11,7 +11,7 @@ PATH="${HOME}/.bin:${PATH}"
 curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
 chmod a+rx ~/.bin/repo
 
-sudo apt-get update && sudo apt-get install dialog file python3 python libelf-dev gpg gpg-agent tree flex bison libssl-dev zip unzip curl wget tree build-essential bc software-properties-common libstdc++6 libpulse0 libglu1-mesa locales lcov libsqlite3-0 --no-install-recommends -y
+sudo apt-get update && sudo apt-get install kmod dialog file python3 python libelf-dev gpg gpg-agent tree flex bison libssl-dev zip unzip curl wget tree build-essential bc software-properties-common libstdc++6 libpulse0 libglu1-mesa locales lcov libsqlite3-0 --no-install-recommends -y
 
 mkdir android-kernel && cd android-kernel
 repo init -u https://android.googlesource.com/kernel/manifest -b ${BRANCH}
