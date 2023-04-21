@@ -18,8 +18,7 @@ ls -al prebuilts-master/clang/host/linux-x86/
 df -h
 # clang-r383902c
 tree -f -L 5 prebuilts-master
-# export PATH=$(pwd)/prebuilts-master/clang/host/linux-x86/clang-r383902c/bin:$(pwd)/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin:$PATH
-ARCH=arm64 BUILD_CONFIG=common/build.config.aarch64 SKIP_MRPROPER=1 SKIP_DEFCONFIG=0 DEFCONFIG=defconfig CC=clang CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android- build/build.sh -j12
+build/build.sh -j12
 tree -f . | grep Image
 
 echo Done.
