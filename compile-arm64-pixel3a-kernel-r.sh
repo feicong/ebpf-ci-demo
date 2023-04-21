@@ -32,6 +32,10 @@ git apply ../../../ebpf-ci-demo/patches/4.9/android-11/*.patch
 git status || true
 popd
 
+mv build build.bak
+git clone https://mirrors.tuna.tsinghua.edu.cn/git/AOSP/kernel/build -b android-msm-bonito-4.9-android12-qpr1
+ls -al build
+
 # export PATH=$(pwd)/prebuilts-master/clang/host/linux-x86/clang-r383902c/bin:$(pwd)/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin:$PATH
 build/build.sh -j12
 tree -f . | grep Image
